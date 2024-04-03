@@ -52,6 +52,7 @@ class _BirthdayCardAppState extends State<BirthdayCardApp> with WidgetsBindingOb
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    player.dispose();
     super.dispose();
   }
 

@@ -54,7 +54,7 @@ class TextFactory {
         strokes: [
           OutlinedTextStroke(
               color: Colors.black,
-              width: 8,
+              width: 2.5,
               strutStyle: strut
           )
         ],
@@ -83,7 +83,7 @@ class BackwardPageState extends State<BackwardPage> {
           double scale = rnd(0.25, artScale);
 
           final particle = Particle(
-              frame: rnd.nextInt(3),
+              frame: rnd.nextInt(6),
               scale: scale,
               x: rnd(0, size.width),
               y: size.height + artHeight / 2 * scale,
@@ -128,13 +128,18 @@ class BackwardPageState extends State<BackwardPage> {
         previousElapsed = currentElapsed;
       });
 
+  final List<Shadow> shadows = [
+      // const Shadow(color: Colors.black, blurRadius: 10)
+  ];
+
   @override
   Widget build(BuildContext context) {
     TextFactory headerFactory = TextFactory(
-      style: const TextStyle(
-        color: Colors.pink,
+      style: TextStyle(
+        color: Colors.limeAccent,
         fontFamily: "Plup",
-        fontSize: 42
+        fontSize: 42,
+        shadows: shadows
       ),
       strut: const StrutStyle(
           height: 3.5,
@@ -143,10 +148,12 @@ class BackwardPageState extends State<BackwardPage> {
     );
 
     TextFactory regularFactory = TextFactory(
-      style: const TextStyle(
-        color: Color.fromRGBO(252, 190, 0, 1.0),
+      style: TextStyle(
+        color: Colors.lightGreenAccent,
+        // color: Color.fromRGBO(252, 190, 0, 1.0),
         fontFamily: "Plup",
-        fontSize: 28
+        fontSize: 28,
+        shadows: shadows
       ),
       strut: const StrutStyle(
           height: 2.5,
@@ -156,10 +163,11 @@ class BackwardPageState extends State<BackwardPage> {
     );
 
     TextFactory endingFactory = TextFactory(
-        style: const TextStyle(
-            color: Colors.blueAccent,
+        style: TextStyle(
+            color: Colors.redAccent,
             fontFamily: "Plup",
-            fontSize: 28
+            fontSize: 28,
+            shadows: shadows
         ),
         strut: const StrutStyle(
             height: 0.01,
