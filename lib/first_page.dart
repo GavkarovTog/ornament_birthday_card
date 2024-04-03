@@ -4,6 +4,7 @@ import 'package:birthday_card_flame/saw_tooth_clipper.dart';
 import 'package:birthday_card_flame/sectorized_border.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:particle_field/particle_field.dart';
 import 'package:rnd/rnd.dart';
 import 'package:outlined_text/outlined_text.dart';
@@ -28,6 +29,40 @@ class BackwardPage extends StatefulWidget {
   State<BackwardPage> createState() => BackwardPageState();
 }
 
+class TextFactory {
+  TextStyle style;
+  StrutStyle strut;
+  EdgeInsets? padding;
+  TextFactory({
+    required this.style,
+    required this.strut,
+    this.padding
+  });
+
+  Widget createText(String text, [bool debug = false]) {
+    return Container(
+      padding: padding,
+      color: debug ? Colors.black : null,
+      child: OutlinedText(
+        text: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: style,
+            strutStyle: strut
+        ),
+
+        strokes: [
+          OutlinedTextStroke(
+              color: Colors.black,
+              width: 8,
+              strutStyle: strut
+          )
+        ],
+      ),
+    );
+  }
+}
+
 class BackwardPageState extends State<BackwardPage> {
   static const countOfArts = 5;
   static const artHeight = 200;
@@ -38,7 +73,6 @@ class BackwardPageState extends State<BackwardPage> {
       image: const AssetImage("assets/images/spritesheet.png"),
       frameWidth: 200
   );
-
   late final particleField = ParticleField(
       origin: Alignment.topLeft,
       spriteSheet: sprite,
@@ -94,143 +128,105 @@ class BackwardPageState extends State<BackwardPage> {
         previousElapsed = currentElapsed;
       });
 
-  Widget _createText(String text, StrutStyle strut) {
-    return Container(
-      // color: Colors.black,
-      child: OutlinedText(
-        text: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                color: Color.fromRGBO(252, 190, 0, 1.0),
-                fontSize: 28
-            ),
-            strutStyle: strut
-        ),
-
-        strokes: [
-          OutlinedTextStroke(
-              color: Colors.black,
-              width: 8,
-              strutStyle: strut
-          )
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    // print("test - ${DateTime.now()}");
-    const strut = StrutStyle(
-      height: 3.5,
-      forceStrutHeight: true
+    TextFactory headerFactory = TextFactory(
+      style: const TextStyle(
+        color: Colors.pink,
+        fontFamily: "Plup",
+        fontSize: 42
+      ),
+      strut: const StrutStyle(
+          height: 3.5,
+          forceStrutHeight: true
+      )
     );
 
-    const smallStrut = StrutStyle(
-      height: 2,
-      forceStrutHeight: true
+    TextFactory regularFactory = TextFactory(
+      style: const TextStyle(
+        color: Color.fromRGBO(252, 190, 0, 1.0),
+        fontFamily: "Plup",
+        fontSize: 28
+      ),
+      strut: const StrutStyle(
+          height: 2.5,
+          forceStrutHeight: true
+      ),
+      padding: EdgeInsets.only(bottom: 16)
     );
+
+    TextFactory endingFactory = TextFactory(
+        style: const TextStyle(
+            color: Colors.blueAccent,
+            fontFamily: "Plup",
+            fontSize: 28
+        ),
+        strut: const StrutStyle(
+            height: 0.01,
+            forceStrutHeight: true
+        ),
+        padding: EdgeInsets.only(bottom: 16)
+    );
+
 
     return ClipRRect(
       clipBehavior: Clip.hardEdge,
       child: particleField.stackAbove(
-        child: Stack(
-          children: [
-            Center(
-                child: Image.asset(
-              "assets/images/background/first_ornament.jpg",
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.cover,
-            )),
-
-            Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-
-                  // TODO: first text, then style
-                  // TODO: problems with strut??????
-                  Container(
-                    // color: Colors.black,
-                    child: OutlinedText(
-                      text: Text(
-                        "Дорогая Мама!",
-                        style: TextStyle(
-                          color: Colors.pink,
-                          fontSize: 42
-                        ),
-                        strutStyle: strut
-                      ),
-
-                      strokes: [
-                        OutlinedTextStroke(
-                          color: Colors.black,
-                          width: 8,
-                          strutStyle: strut
-                        )
-                      ],
+        child: RepaintBoundary(
+          child: Stack(
+            children: [
+              Center(
+                  child: Image.asset(
+                "assets/images/background/first_ornament.jpg",
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
+              )),
+          
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+          
+                    // TODO: first text, then style
+                    // TODO: problems with strut??????
+          
+                    headerFactory.createText("Дорогая Мама!"),
+          
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
+          
+                    regularFactory.createText("Желаю тебе всегда хорошего настроения,"),
+                    regularFactory.createText("Пусть все дела решаются легко,"),
+                    regularFactory.createText("Пусть мы с Сашей чаще радуем тебя,"),
+                    regularFactory.createText("Желаю тебе крепкого здоровья"),
 
-                  const SizedBox(
-                    height: 10,
-                  ),
+                    const SizedBox(
+                      height: 20,
+                    ),
 
-                  _createText("Желаю тебе хорошего настроения,", smallStrut),
-                  _createText("Чтобы мы с Сашей чаще радовали тебя,", smallStrut),
+                    endingFactory.createText("Мы любим тебя!"),
 
-
-                  // Container(
-                  //   // color: Colors.black,
-                  //   child: OutlinedText(
-                  //     text: const Text(
-                  //         "Желаю тебе хорошего настроения,\n" +
-                  //         "Чтобы мы с Сашей чаще радовали тебя,",
-                  //         textAlign: TextAlign.center,
-                  //         style: TextStyle(
-                  //             color: Color.fromRGBO(252, 190, 0, 1.0),
-                  //             fontSize: 28
-                  //         ),
-                  //         strutStyle: smallStrut
-                  //     ),
-                  //
-                  //     strokes: [
-                  //       OutlinedTextStroke(
-                  //           color: Colors.black,
-                  //           width: 8,
-                  //           strutStyle: smallStrut
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
-                  //
-
-
-                  // OutlinedText(
-                  //   text: const Text(
-                  //     "Дорогая Мама!\n",
-                  //     textAlign: TextAlign.center,
-                  //     style: TextStyle(
-                  //       color: Colors.pinkAccent,
-                  //       fontSize: 42,
-                  //     ),
-                  //     strutStyle: StrutStyle(
-                  //         forceStrutHeight: true
-                  //     ),
-                  //   ),
-                  //   strokes: [
-                  //     OutlinedTextStroke(
-                  //       color: Colors.black,
-                  //       width: 8
-                  //     )
-                  //   ],
-                  // ),
-                ],
+                    Container(
+                      // color: Colors.black,
+                      child: Icon(
+                        Ionicons.heart,
+                        color: Colors.red,
+                        size: 150,
+                        shadows: [
+                          for (int i = 0; i < 5; i ++) const Shadow(
+                              color: Colors.black,
+                            blurRadius: 20
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                )
               )
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
