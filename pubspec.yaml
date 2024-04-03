@@ -106,25 +106,14 @@ flutter:
   #         weight: 700
 
   fonts:
-    - family: Yarin-Regular
-      fonts:
-        - asset: assets/fonts/Yarin-Regular.ttf
-
     - family: Yarin-Bold
       fonts:
         - asset: assets/fonts/Yarin-Bold.ttf
-
-    - family: Toyz
-      fonts:
-        - asset: assets/fonts/Toyz.ttf
 
     - family: Plup
       fonts:
         - asset: assets/fonts/Plup.ttf
 
-    - family: TovariSans
-      fonts:
-        - asset: assets/fonts/TovariSans.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

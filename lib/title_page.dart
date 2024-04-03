@@ -1,8 +1,6 @@
 import 'dart:math';
 
-import 'package:birthday_card_flame/saw_tooth_clipper.dart';
 import 'package:birthday_card_flame/sectorized_border.dart';
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 class FrontPage extends StatefulWidget {
@@ -15,13 +13,11 @@ class FrontPage extends StatefulWidget {
 class FrontPageState extends State<FrontPage> {
   @override
   void initState() {
-    // print("FrontPage.initState() - ${DateTime.now()}");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // print("FrontPage.build - ${DateTime.now()}");
 
     return LayoutBuilder(
       builder: (_, constraints) {

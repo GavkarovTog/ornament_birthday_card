@@ -1,8 +1,5 @@
 import 'dart:math';
 
-import 'package:birthday_card_flame/saw_tooth_clipper.dart';
-import 'package:birthday_card_flame/sectorized_border.dart';
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:particle_field/particle_field.dart';

@@ -1,13 +1,7 @@
-import 'dart:async';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:birthday_card_flame/title_page.dart';
-import 'package:flame/components.dart';
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:page_flip_builder/page_flip_builder.dart';
-import 'package:provider/provider.dart';
 import 'first_page.dart';
 
 void main() {
