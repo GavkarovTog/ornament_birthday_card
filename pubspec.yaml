@@ -36,6 +36,14 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flame: ^1.15.0
+  particle_field: ^1.0.0
+  rnd: ^0.2.0
+  page_flip_builder: ^0.1.4
+  provider: ^6.1.2
+  stroke_text: ^0.0.2
+  outlined_text:
+    git:
+      url: https://github.com/GavkarovTog/outlined_text
 
 dev_dependencies:
   flutter_test:
@@ -65,12 +73,9 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
-    - assets/images/background/background_animated.png
-    - assets/images/blue.png
-    - assets/images/earth.png
-    - assets/images/moon.png
-    - assets/images/green.png
-    - assets/images/pink.png
+    - assets/images/background/title_ornament.jpg
+    - assets/images/background/first_ornament.jpg
+    - assets/images/spritesheet.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -94,6 +99,20 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+
+  fonts:
+    - family: Roboto-Thin
+      fonts:
+        - asset: assets/fonts/Roboto-Thin.ttf
+
+    - family: Yarin-Regular
+      fonts:
+        - asset: assets/fonts/Yarin-Regular.ttf
+
+    - family: Yarin-Bold
+      fonts:
+        - asset: assets/fonts/Yarin-Bold.ttf
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

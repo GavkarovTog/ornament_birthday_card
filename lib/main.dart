@@ -1,42 +1,39 @@
 import 'dart:async';
 
+import 'package:birthday_card_flame/title_page.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:page_flip_builder/page_flip_builder.dart';
+import 'package:provider/provider.dart';
+import 'first_page.dart';
 
 void main() {
-  runApp(GameWidget(game: BirthdayCard()));
+  runApp(BirthdayCardApp());
 }
 
-class BirthdayCard extends FlameGame with SingleGameInstance {
+class BirthdayCardApp extends StatelessWidget {
+  BirthdayCardApp({super.key});
+
+  final GlobalKey _frontKey = GlobalKey<FrontPageState>();
+  final GlobalKey _backwardKey = GlobalKey<BackwardPageState>();
+
+
+  late final _frontPage = RepaintBoundary(key: _frontKey, child: FrontPage());
+  late final _backwardPage = BackwardPage(key: _backwardKey,);
+  // TODO: Use provider
   @override
-  FutureOr<void> onLoad() async {
-    List<SpriteAnimationComponent> backgroundComposited = [];
-    const backgroundSpriteRowCount = 3;
-    const backgroundSpriteColCount = 2;
-
-    for (int i = 0; i < backgroundSpriteRowCount; i ++) {
-      for (int j = 0; j < backgroundSpriteColCount; j ++) {
-        backgroundComposited.add(
-          SpriteAnimationComponent(
-            size: Vector2(size.x / backgroundSpriteColCount.toDouble(), size.y / backgroundSpriteRowCount.toDouble()),
-            position: Vector2(
-              size.x / backgroundSpriteColCount.toDouble() * i,
-              size.y / backgroundSpriteRowCount.toDouble() * j
-            ),
-            animation: await loadSpriteAnimation(
-                "background/background_animated.png",
-                SpriteAnimationData.sequenced(
-                    amount: 4,
-                    stepTime: 0.2,
-                    textureSize: Vector2(64, 64)
-                )
-            )
-          )
-        );
-      }
-    }
-
-    addAll(backgroundComposited);
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(useMaterial3: true),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: PageFlipBuilder(
+          frontBuilder: (_) => _frontPage,
+          backBuilder: (_) => _backwardPage,
+        ),
+      ),
+    );
   }
 }
